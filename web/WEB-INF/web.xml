@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>LoggingTable</servlet-name>
+        <servlet-class>ictgradschool.web.lab15.ex1.LoggingTable</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>LoggingTable</servlet-name>
+        <url-pattern>/question1</url-pattern>
+    </servlet-mapping>
+
+
+    <servlet>
+        <servlet-name>LoggingTableNewEntry</servlet-name>
+        <servlet-class>ictgradschool.web.lab15.ex1.LoggingTableNewEntry</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoggingTableNewEntry</servlet-name>
+        <url-pattern>/question1/new</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>JSONSavingServlet</servlet-name>
+        <servlet-class>ictgradschool.web.lab15.ex4.JSONSavingServlet</servlet-class>
+        <init-param>
+            <param-name>json-save-directory</param-name>
+            <!-- Make sure to update this so that your JSON documents save
+                 to the correct location on your local machine *and* the
+                 remote server                                             -->
+            <param-value>Some/Path/To/Places</param-value>
+        </init-param>
+    </servlet>
+
+
+    <servlet-mapping>
+        <servlet-name>JSONSavingServlet</servlet-name>
+        <url-pattern>/question4</url-pattern>
+    </servlet-mapping>
+
+</web-app>
