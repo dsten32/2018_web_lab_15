@@ -38,7 +38,7 @@ public class AccessLog implements Serializable {
         return desc;
     }
 
-    public Time getTimeStamp() {
+    public Timestamp getTimeStamp() {
         return timeStamp;
     }
 

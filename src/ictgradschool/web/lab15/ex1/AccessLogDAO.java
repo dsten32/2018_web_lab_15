@@ -9,6 +9,7 @@ import java.util.Properties;
 
 public class AccessLogDAO {
 
+    //get all the table entries
     public List<AccessLog> allAccessLogs(){
         //place to put the returned info beans
         List<AccessLog> allLogs = new ArrayList<>();
@@ -24,9 +25,6 @@ public class AccessLogDAO {
         //connect
         try (Connection conn = DriverManager.getConnection(dbProps.getProperty("url"), dbProps)) {
         System.out.println("Connection successful");
-
-
-
             //preparing our query
             try (PreparedStatement Stmt = conn.prepareStatement("SELECT * FROM access_log")) {
                 //sending query
@@ -61,7 +59,37 @@ public class AccessLogDAO {
         return allLogs;
     }
 
+
+    //add new logs to the table
     public void addAccessLog(AccessLog a){
+
+        //load our props
+        Properties dbProps = new Properties();
+        try (FileInputStream fIn = new FileInputStream("mysql.properties")) {
+            dbProps.load(fIn);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        //connect
+        try (Connection conn = DriverManager.getConnection(dbProps.getProperty("url"), dbProps)) {
+            System.out.println("Connection successful");
+
+            //preparing our query
+            try (PreparedStatement Stmt = conn.prepareStatement("INSERT INTO access_log (name, description) VALUES (?,?)")){
+                //getting the values from our imaginatively named bean and inserting them into the query
+                Stmt.setString(1, a.getName());
+                Stmt.setString(2, a.getDesc());
+
+                //sending update
+                Stmt.executeUpdate();
+
+            } catch (SQLException e1) {// End of prepare statement try block
+                e1.printStackTrace();
+            }
+        }catch (SQLException e) {//end of connection try block
+            e.printStackTrace();
+        }
 
 
     }
