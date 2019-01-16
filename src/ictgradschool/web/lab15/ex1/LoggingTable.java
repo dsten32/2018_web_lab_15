@@ -16,6 +16,7 @@ public class LoggingTable extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         // TODO: Retrieve LoggingTable entries and pass them to the LoggingTableDisplay.jsp file
         HttpSession session = request.getSession(); // this will create a session if one doesn't exist.
 

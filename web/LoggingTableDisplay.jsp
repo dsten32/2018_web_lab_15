@@ -13,7 +13,7 @@
 <body>
 
 New entry form
-<form action="/question1/new" method="post" title="New Entry">
+<form action="question1/new" method="post" title="New Entry">
     <label for="name">Name</label>
     <input type="text" id="name" name="name">
 

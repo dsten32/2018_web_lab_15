@@ -1,23 +1,37 @@
 package ictgradschool.web.lab15.ex1;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import com.mysql.jdbc.Driver;
 
-public class AccessLogDAO {
+import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+
+
+public class AccessLogDAO implements ServletContextListener {
 
     //get all the table entries
     public List<AccessLog> allAccessLogs(){
         //place to put the returned info beans
         List<AccessLog> allLogs = new ArrayList<>();
 
+
         //load our props
         Properties dbProps = new Properties();
-        try (FileInputStream fIn = new FileInputStream("C:\\Users\\dwc1\\IdeaProjects\\2018s_web_lab_15\\mysql.properties")) {
+        dbProps.setProperty("url", "jdbc:mysql://db.sporadic.nz:3306/dwc1");
+        dbProps.setProperty("useSSL", "false");
+        dbProps.setProperty("user", "dwc1");
+
+
+        try (FileInputStream fIn = new FileInputStream("mysql.properties")) {
+//        try (FileInputStream fIn = new FileInputStream("C:\\Users\\dwc1\\IdeaProjects\\2018s_web_lab_15\\mysql.properties")) {
             dbProps.load(fIn);
         } catch (IOException e) {
             e.printStackTrace();
@@ -72,8 +86,14 @@ public class AccessLogDAO {
     public void addAccessLog(AccessLog a){
 
         //load our props
+        //load our props
         Properties dbProps = new Properties();
-        try (FileInputStream fIn = new FileInputStream("C:\\Users\\dwc1\\IdeaProjects\\2018s_web_lab_15\\mysql.properties")) {
+//        dbProps.setProperty("url", "jdbc:mysql://db.sporadic.nz:3306/dwc1");
+//        dbProps.setProperty("useSSL", "false");
+//        dbProps.setProperty("user", "dwc1");
+//yep it's loading this that's the problem
+        try (FileInputStream fIn = new FileInputStream("mysql.properties")) {
+//        try (FileInputStream fIn = new FileInputStream("C:\\Users\\dwc1\\IdeaProjects\\2018s_web_lab_15\\mysql.properties")) {
             dbProps.load(fIn);
         } catch (IOException e) {
             e.printStackTrace();
@@ -108,5 +128,9 @@ public class AccessLogDAO {
 
 
     }
+
+
+
+
 
 }
