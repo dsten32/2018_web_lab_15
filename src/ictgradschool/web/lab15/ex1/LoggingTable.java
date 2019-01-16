@@ -19,10 +19,9 @@ public class LoggingTable extends HttpServlet {
         // TODO: Retrieve LoggingTable entries and pass them to the LoggingTableDisplay.jsp file
         HttpSession session = request.getSession(); // this will create a session if one doesn't exist.
 
-        //creat our DAO instance, retrieve our access loogs
+        //create our DAO instance, retrieve our access logs
         AccessLogDAO accessLogDAO=new AccessLogDAO();
-        List<AccessLog> allAccessLogs = new ArrayList<>();
-        allAccessLogs=accessLogDAO.allAccessLogs();
+        List<AccessLog> allAccessLogs = accessLogDAO.allAccessLogs();
 
         //add our access logs to the request
         request.setAttribute("allAccessLogs",allAccessLogs);
