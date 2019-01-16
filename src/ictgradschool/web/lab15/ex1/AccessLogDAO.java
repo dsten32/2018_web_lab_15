@@ -73,10 +73,16 @@ public class AccessLogDAO {
 
         //load our props
         Properties dbProps = new Properties();
-        try (FileInputStream fIn = new FileInputStream("mysql.properties")) {
+        try (FileInputStream fIn = new FileInputStream("C:\\Users\\dwc1\\IdeaProjects\\2018s_web_lab_15\\mysql.properties")) {
             dbProps.load(fIn);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        try {
+            Class.forName("org.mariadb.jdbc.Driver"); // com.mysql.jdbc.Driver / org.postgresql.Driver
+        } catch (Exception except) {
+            except.printStackTrace();
         }
 
         //connect
@@ -90,7 +96,8 @@ public class AccessLogDAO {
                 Stmt.setString(2, a.getDesc());
 
                 //sending update
-                Stmt.executeUpdate();
+                Stmt.execute();
+                System.out.println("did something");
 
             } catch (SQLException e1) {// End of prepare statement try block
                 e1.printStackTrace();
