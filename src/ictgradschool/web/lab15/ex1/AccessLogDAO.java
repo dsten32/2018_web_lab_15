@@ -10,12 +10,10 @@ import java.util.List;
 import java.util.Properties;
 import com.mysql.jdbc.Driver;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletContextEvent;
-import javax.servlet.ServletContextListener;
 
 
-public class AccessLogDAO implements ServletContextListener {
+
+public class AccessLogDAO {
 
     //get all the table entries
     public List<AccessLog> allAccessLogs(){
