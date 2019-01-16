@@ -7,7 +7,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class LoggingTable extends HttpServlet {
@@ -22,7 +24,14 @@ public class LoggingTable extends HttpServlet {
 
         //create our DAO instance, retrieve our access logs
         AccessLogDAO accessLogDAO=new AccessLogDAO();
-        List<AccessLog> allAccessLogs = accessLogDAO.allAccessLogs();
+        List<AccessLog> allAccessLogs = null;
+        try {
+            allAccessLogs = accessLogDAO.allAccessLogs(getServletContext());
+        } catch (Exception e) {
+            response.getWriter().println(e.getMessage());
+            response.getWriter().println(Arrays.toString(e.getStackTrace()));
+            return;
+        }
 
         //add our access logs to the request
         request.setAttribute("allAccessLogs",allAccessLogs);
