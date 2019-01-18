@@ -17,18 +17,20 @@ public class LoggingTableNewEntry extends HttpServlet {
         // TODO: Redirect back to the LoggingTable
 
         HttpSession session = request.getSession();
-//        Map<String, String[]> map = request.getParameterMap();
-//        Iterator<Map.Entry<String, String[]>> i = map.entrySet().iterator();
+
 
         AccessLog newLog = new AccessLog();
         newLog.setName(request.getParameter("name"));
         newLog.setDesc(request.getParameter("desc"));
 
         AccessLogDAO accessLogDAO=new AccessLogDAO();
-        accessLogDAO.addAccessLog(newLog);
-//        List<AccessLog> allAccessLogs = accessLogDAO.allAccessLogs();
+        try {
+            accessLogDAO.addAccessLog(newLog,getServletContext());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-response.sendRedirect("../question1");
+        response.sendRedirect("../question1");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

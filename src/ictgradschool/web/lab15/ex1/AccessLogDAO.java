@@ -21,12 +21,9 @@ public class AccessLogDAO {
         //place to put the returned info beans
         List<AccessLog> allLogs = new ArrayList<>();
 
-
         //load our props
         Properties dbProps = new Properties();
-        dbProps.setProperty("url", "jdbc:mysql://db.sporadic.nz:3306/dwc1");
-        dbProps.setProperty("useSSL", "false");
-        dbProps.setProperty("user", "dwc1");
+
 
 
         try (FileInputStream fIn = new FileInputStream(context.getRealPath("WEB-INF/mysql.properties"))) {
@@ -45,7 +42,7 @@ public class AccessLogDAO {
 
         //connect
         try (Connection conn = DriverManager.getConnection(dbProps.getProperty("url"), dbProps)) {
-            System.out.println("Connection successful");
+            System.out.println("Connection successful - getting logs");
             //preparing our query
             try (PreparedStatement Stmt = conn.prepareStatement("SELECT * FROM access_log")) {
                 //sending query
@@ -73,9 +70,10 @@ public class AccessLogDAO {
 //} catch (SQLException e1) {// End of prepare statement try block
 //        e1.printStackTrace();
 //        }
-//        }catch (SQLException e) {//end of connection try block
-//        e.printStackTrace();
+        }catch (SQLException e) {//end of connection try block
+        e.printStackTrace();
                 }
+
             }
         }
         //got our list now give it away
@@ -84,7 +82,7 @@ public class AccessLogDAO {
 
 
     //add new logs to the table
-    public void addAccessLog(AccessLog a) {
+    public void addAccessLog(AccessLog a,ServletContext context) throws Exception {
 
         //load our props
         //load our props
@@ -93,22 +91,22 @@ public class AccessLogDAO {
 //        dbProps.setProperty("useSSL", "false");
 //        dbProps.setProperty("user", "dwc1");
 //yep it's loading this that's the problem
-        try (FileInputStream fIn = new FileInputStream("mysql.properties")) {
+        try (FileInputStream fIn = new FileInputStream(context.getRealPath("WEB-INF/mysql.properties"))) {
 //        try (FileInputStream fIn = new FileInputStream("C:\\Users\\dwc1\\IdeaProjects\\2018s_web_lab_15\\mysql.properties")) {
             dbProps.load(fIn);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Exception(e.getMessage(), e);
         }
 
         try {
-            Class.forName("org.mariadb.jdbc.Driver"); // com.mysql.jdbc.Driver / org.postgresql.Driver
+            Class.forName("com.mysql.jdbc.Driver"); // com.mysql.jdbc.Driver / org.postgresql.Driver
         } catch (Exception except) {
             except.printStackTrace();
         }
 
         //connect
         try (Connection conn = DriverManager.getConnection(dbProps.getProperty("url"), dbProps)) {
-            System.out.println("Connection successful");
+            System.out.println("Connection successful- stand by for adding to table");
 
             //preparing our query
             try (PreparedStatement Stmt = conn.prepareStatement("INSERT INTO access_log (name, description) VALUES (?,?)")) {

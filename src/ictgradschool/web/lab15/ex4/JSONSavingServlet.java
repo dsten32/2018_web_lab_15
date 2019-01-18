@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.*;
+import java.util.Iterator;
+import java.util.Map;
 
 public class JSONSavingServlet extends HttpServlet {
     private String transactionDir;
@@ -33,6 +35,29 @@ public class JSONSavingServlet extends HttpServlet {
         /* If any parameter is missing, redirect the user to the form again *
          * by calling the doGet(request, response); method. Use those       *
          * parameters to populate the form, and indicate the missing values */
+        Map<String,String[]> map= request.getParameterMap();
+
+        Iterator<Map.Entry<String, String[]>> i = map.entrySet().iterator();
+        response.getWriter().println("\n\nkey: values");
+        boolean br=true;
+        while(i.hasNext() && br) {
+            Map.Entry<String, String[]> entry = i.next();
+            String key = entry.getKey();
+            String[] values = entry.getValue();
+            response.getWriter().print("\n" + key.toUpperCase() + ": ");
+            for(String value: values) {
+
+                if(value.length()==0){
+
+                    doGet(request,response);
+                    br=false;
+                    break;
+                }
+                response.getWriter().print(value + ",");
+            }
+        }
+        response.getWriter().print("\n");
+
 
         JSONObject transaction = new JSONObject();
 
@@ -58,6 +83,8 @@ public class JSONSavingServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO: Display your Exercise 4 JSP file
+
+        response.sendRedirect("JSONForm.jsp");
     }
 
     /**
