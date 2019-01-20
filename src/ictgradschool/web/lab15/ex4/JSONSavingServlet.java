@@ -38,11 +38,6 @@ public class JSONSavingServlet extends HttpServlet {
          * parameters to populate the form, and indicate the missing values */
         HttpSession session = request.getSession();
 
-//        session.setAttribute("invoice",request.getParameter("invoice"));
-//        session.setAttribute("address",request.getParameter("address"));
-//        session.setAttribute("cardname",request.getParameter("cardname"));
-//        session.setAttribute("ccdprovider",request.getParameter("ccdprovider"));
-
         Map<String, String[]> map = request.getParameterMap();
 
         Iterator<Map.Entry<String, String[]>> i = map.entrySet().iterator();
@@ -52,9 +47,11 @@ public class JSONSavingServlet extends HttpServlet {
             Map.Entry<String, String[]> entry = i.next();
             String key = entry.getKey();
             String[] values = entry.getValue();
+//            String[] values = entry.getValue();
 //            response.getWriter().print("\n" + key.toUpperCase() + ": ");
             for (String value : values) {
-                session.setAttribute(key,value);
+                session.setAttribute(key, value);
+                System.out.println(key+":"+ value);
 //                response.getWriter().print(value + ",");
             }
 
@@ -71,12 +68,10 @@ public class JSONSavingServlet extends HttpServlet {
                 if (value.length() == 0) {
                     doGet(request, response);
                     br = false;
-                    break;
+                    return;
                 }
             }
         }
-//        response.getWriter().print("\nhi");
-
 
         JSONObject transaction = new JSONObject();
 
@@ -85,16 +80,16 @@ public class JSONSavingServlet extends HttpServlet {
 
         //start making our json structure
         JSONObject addressOb = new JSONObject();
-        addressOb.put("address",request.getParameter("address"));
+        addressOb.put("address", request.getParameter("address"));
 
-        transaction.put("billingAddress",addressOb);
+        transaction.put("billingAddress", addressOb);
 
         JSONObject cardInf = new JSONObject();
-        cardInf.put("cardName",request.getParameter("cardname"));
-        cardInf.put("cardType",request.getParameter("ccdprovider"));
-        cardInf.put("cardNo",request.getParameter("ccd1")+'-'+request.getParameter("ccd2")+'-'+request.getParameter("ccd3")+'-'+request.getParameter("ccd4"));
+        cardInf.put("cardName", request.getParameter("cardname"));
+        cardInf.put("cardType", request.getParameter("ccdprovider"));
+        cardInf.put("cardNo", request.getParameter("ccd1") + '-' + request.getParameter("ccd2") + '-' + request.getParameter("ccd3") + '-' + request.getParameter("ccd4"));
 
-        transaction.put("creditCard",cardInf);
+        transaction.put("creditCard", cardInf);
         // Create and populate a JSON array
 //        JSONArray jsonArray = new JSONArray();
 
@@ -105,24 +100,25 @@ public class JSONSavingServlet extends HttpServlet {
 
 
         // Add the array to our object
-//        transaction.put("array", jsonArray);
+
         //set file path as path
         File path = new File(getServletContext().getRealPath(transactionDir));
 //check path exists, else create
-        if(!(path.exists())){
+        if (!(path.exists())) {
             path.mkdir();
         }
 //set file with invoice #
-        File fPath = new File(path+"/"+request.getParameter("invoice")+".json");
+        File fPath = new File(path + "/" + request.getParameter("invoice") + ".json");
 //save file
         saveJSONObject(fPath, transaction);
         /* Save the JSON object to an appropriate directory, using the    *
          * 'invoice number' parameter as the filename, with the extension *
          * '.json'. An example filename might be '15678.json'. The method *
          * saveJSONObject() has been provided to save the JSON            */
+
         session.invalidate();
 
-
+        doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
