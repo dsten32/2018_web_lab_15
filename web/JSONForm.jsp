@@ -34,7 +34,7 @@
         </tr>
         <tr>
             <td><label for="ccd1">CCD #</label></td>
-            <td><input id="ccd1" type="number" size="4" name="ccd1" placeholder="XXXX" width="4"><input type="number" size="4" name="ccd2" placeholder="XXXX"><input type="number" size="4" name="ccd3" placeholder="XXXX"><input type="number" size="4" name="ccd4" placeholder="XXXX"></td>
+            <td><input id="ccd1" type="number" maxlength="4" min="1000" max="9999" name="ccd1" placeholder="XXXX" width="4"><input type="number" maxlength="4" min="1000" max="9999" name="ccd2" placeholder="XXXX"><input type="number" maxlength="4" min="1000" max="9999"  name="ccd3" placeholder="XXXX"><input type="number" maxlength="4" min="1000" max="9999" name="ccd4" placeholder="XXXX"></td>
         </tr>
 
     <br>

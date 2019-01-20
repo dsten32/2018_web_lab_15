@@ -35,7 +35,7 @@
             <!-- Make sure to update this so that your JSON documents save
                  to the correct location on your local machine *and* the
                  remote server                                             -->
-            <param-value>Some/Path/To/Places</param-value>
+            <param-value>transactionDir</param-value>
         </init-param>
     </servlet>
 
