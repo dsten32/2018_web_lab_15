@@ -17,13 +17,69 @@
     </script>
 </head>
 <body>
+<% if (session.getAttribute("invoice")==null){ %>
+<core:set var="iborder" value=""/>
+    <%
+} else if (session.getAttribute("invoice").equals("")){%>
+<core:set var="iborder" value="style=border-color:red"/>
+<%}%>
+
+<% if (session.getAttribute("address")==null){ %>
+<core:set var="aborder" value=""/>
+<%
+} else if (session.getAttribute("address").equals("")){%>
+<core:set var="aborder" value="style=border-color:red"/>
+<%}%>
+
+<% if (session.getAttribute("cardname")==null){ %>
+<core:set var="cnborder" value=""/>
+<%
+} else if (session.getAttribute("cardname").equals("")){%>
+<core:set var="cnborder" value="style=border-color:red"/>
+<%}%>
+
+<% if (session.getAttribute("ccdprovider")==null){ %>
+<core:set var="cpborder" value=""/>
+<%
+} else if (session.getAttribute("ccdprovider").equals("")){%>
+<core:set var="cpborder" value="style=border-color:red"/>
+<%}%>
+
+<% if (session.getAttribute("ccd1")==null){ %>
+<core:set var="c1border" value=""/>
+<%
+} else if (session.getAttribute("ccd1").equals("")){%>
+<core:set var="c1border" value="style=border-color:red"/>
+<%}%>
+
+<% if (session.getAttribute("ccd2")==null){ %>
+<core:set var="c2border" value=""/>
+<%
+} else if (session.getAttribute("ccd2").equals("")){%>
+<core:set var="c2border" value="style=border-color:red"/>
+<%}%>
+
+<% if (session.getAttribute("ccd3")==null){ %>
+<core:set var="c3border" value=""/>
+<%
+} else if (session.getAttribute("ccd3").equals("")){%>
+<core:set var="c3border" value="style=border-color:red"/>
+<%}%>
+
+<% if (session.getAttribute("ccd4")==null){ %>
+<core:set var="c4border" value=""/>
+<%
+} else if (session.getAttribute("ccd4").equals("")){%>
+<core:set var="c4border" value="style=border-color:red"/>
+<%}%>
+
 
 <form action="question4" method="post">
     <table>
         <tr>
             <td><label for="invoice">Invoice Number</label></td>
 
-            <td><input id="invoice" type="number" name="invoice"  placeholder="INVOICE#" <core:out value="${fn:length(invoice) eq 0 ? 'style=border-color\: red' : 'value='.concat(invoice).concat('')}"/>></td>
+            <td><input id="invoice" type="number" name="invoice"  placeholder="INVOICE#" <core:out value="${fn:length(invoice) eq 0 ? border : 'value='.concat(invoice).concat('')}"/>></td>
 
         </tr>
         <tr>
