@@ -79,24 +79,24 @@
         <tr>
             <td><label for="invoice">Invoice Number</label></td>
 
-            <td><input id="invoice" type="number" name="invoice"  placeholder="INVOICE#" <core:out value="${fn:length(invoice) eq 0 ? border : 'value='.concat(invoice).concat('')}"/>></td>
+            <td><input id="invoice" type="number" name="invoice"  placeholder="INVOICE#" <core:out value="${fn:length(invoice) eq 0 ? iborder : 'value='.concat(invoice).concat('')}"/>></td>
 
         </tr>
         <tr>
             <td><label for="address">Address:</label></td>
-            <td><textarea id="address" name="address" placeholder="address" rows="5" cols="50" <core:if test="${fn:length(address)!=0}">value="${address}"</core:if>></textarea></td>
+            <td><textarea id="address" name="address" placeholder="address" rows="5" cols="50" <core:out value="${fn:length(address) eq 0 ? aborder : 'value='.concat(address).concat('')}"/>></textarea></td>
         </tr>
         <tr>
             <td><label for="cardname">Name on your card</label></td>
-            <td><input id="cardname" type="text" name="cardname" placeholder="CCD name" <core:if test="${fn:length(cardname)!=0}">value="${cardname}"</core:if>></td>
+            <td><input id="cardname" type="text" name="cardname" placeholder="CCD name" <core:out value="${fn:length(cardname) eq 0 ? cnborder : 'value='.concat(cardname).concat('')}"/>></td>
         </tr>
         <tr>
             <td><label for="ccdprovider">Provider</label></td>
-            <td><input id="ccdprovider" type="text" name="ccdprovider" placeholder="card provider (visa ect)" <core:if test="${fn:length(ccdprovider)!=0}">value="${ccdprovider}"</core:if>></td>
+            <td><input id="ccdprovider" type="text" name="ccdprovider" placeholder="card provider (visa ect)" <core:out value="${fn:length(ccdprovider) eq 0 ? cpborder : 'value='.concat(ccdprovider).concat('')}"/>></td>
         </tr>
         <tr>
             <td><label for="ccd1">CCD #</label></td>
-            <td><input id="ccd1" type="number" maxlength="4" min="1000" max="9999" name="ccd1" placeholder="XXXX" width="4" <core:if test="${fn:length(ccd1)!=0}">value="${ccd1}"</core:if>><input type="number" maxlength="4" min="1000" max="9999" name="ccd2" placeholder="XXXX" <core:if test="${fn:length(ccd2)!=0}">value="${ccd2}"</core:if>><input type="number" maxlength="4" min="1000" max="9999"  name="ccd3" placeholder="XXXX" <core:if test="${fn:length(ccd3)!=0}">value="${ccd3}"</core:if>><input type="number" maxlength="4" min="1000" max="9999" name="ccd4" placeholder="XXXX" <core:if test="${fn:length(ccd4)!=0}">value="${ccd4}"</core:if>></td>
+            <td><input id="ccd1" type="number" maxlength="4" min="1000" max="9999" name="ccd1" placeholder="XXXX" width="4" <core:out value="${fn:length(ccd1) eq 0 ? c1border : 'value='.concat(ccd1).concat('')}"/>><input type="number" maxlength="4" min="1000" max="9999" name="ccd2" placeholder="XXXX" <core:out value="${fn:length(ccd2) eq 0 ? c2border : 'value='.concat(ccd2).concat('')}"/>><input type="number" maxlength="4" min="1000" max="9999"  name="ccd3" placeholder="XXXX" <core:out value="${fn:length(ccd3) eq 0 ? c3border : 'value='.concat(ccd3).concat('')}"/>><input type="number" maxlength="4" min="1000" max="9999" name="ccd4" placeholder="XXXX" <core:out value="${fn:length(ccd4) eq 0 ? c4border : 'value='.concat(ccd4).concat('')}"/>></td>
         </tr>
 
     <br>
