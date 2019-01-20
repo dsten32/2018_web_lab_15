@@ -46,23 +46,33 @@ public class JSONSavingServlet extends HttpServlet {
         Map<String, String[]> map = request.getParameterMap();
 
         Iterator<Map.Entry<String, String[]>> i = map.entrySet().iterator();
-        response.getWriter().println("\n\nkey: values");
+//        response.getWriter().println("\n\nkey: values");
         boolean br = true;
         while (i.hasNext() && br) {
             Map.Entry<String, String[]> entry = i.next();
             String key = entry.getKey();
             String[] values = entry.getValue();
 //            response.getWriter().print("\n" + key.toUpperCase() + ": ");
-
             for (String value : values) {
                 session.setAttribute(key,value);
-                if (value.length() == 0) {
+//                response.getWriter().print(value + ",");
+            }
 
+        }
+
+        i = map.entrySet().iterator();
+
+        while (i.hasNext() && br) {
+            Map.Entry<String, String[]> entry = i.next();
+
+            String[] values = entry.getValue();
+            for (String value : values
+            ) {
+                if (value.length() == 0) {
                     doGet(request, response);
                     br = false;
                     break;
                 }
-//                response.getWriter().print(value + ",");
             }
         }
 //        response.getWriter().print("\nhi");
@@ -110,6 +120,9 @@ public class JSONSavingServlet extends HttpServlet {
          * 'invoice number' parameter as the filename, with the extension *
          * '.json'. An example filename might be '15678.json'. The method *
          * saveJSONObject() has been provided to save the JSON            */
+        session.invalidate();
+
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
