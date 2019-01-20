@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -35,6 +36,13 @@ public class JSONSavingServlet extends HttpServlet {
         /* If any parameter is missing, redirect the user to the form again *
          * by calling the doGet(request, response); method. Use those       *
          * parameters to populate the form, and indicate the missing values */
+        HttpSession session = request.getSession();
+
+//        session.setAttribute("invoice",request.getParameter("invoice"));
+//        session.setAttribute("address",request.getParameter("address"));
+//        session.setAttribute("cardname",request.getParameter("cardname"));
+//        session.setAttribute("ccdprovider",request.getParameter("ccdprovider"));
+
         Map<String, String[]> map = request.getParameterMap();
 
         Iterator<Map.Entry<String, String[]>> i = map.entrySet().iterator();
@@ -44,19 +52,20 @@ public class JSONSavingServlet extends HttpServlet {
             Map.Entry<String, String[]> entry = i.next();
             String key = entry.getKey();
             String[] values = entry.getValue();
-            response.getWriter().print("\n" + key.toUpperCase() + ": ");
-            for (String value : values) {
+//            response.getWriter().print("\n" + key.toUpperCase() + ": ");
 
+            for (String value : values) {
+                session.setAttribute(key,value);
                 if (value.length() == 0) {
 
                     doGet(request, response);
                     br = false;
                     break;
                 }
-                response.getWriter().print(value + ",");
+//                response.getWriter().print(value + ",");
             }
         }
-        response.getWriter().print("\nhi");
+//        response.getWriter().print("\nhi");
 
 
         JSONObject transaction = new JSONObject();
