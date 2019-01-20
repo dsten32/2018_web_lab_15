@@ -23,7 +23,7 @@
         <tr>
             <td><label for="invoice">Invoice Number</label></td>
 
-            <td><input id="invoice" type="number" name="invoice"  placeholder="INVOICE#" <core:if test="${fn:length(invoice)!=0}">value="${invoice}"</core:if>></td>
+            <td><input id="invoice" type="number" name="invoice"  placeholder="INVOICE#" <core:out value="${fn:length(invoice) eq 0 ? 'style=border-color\: red' : 'value='.concat(invoice).concat('')}"/>></td>
 
         </tr>
         <tr>
@@ -49,7 +49,7 @@
     </table>
     <br>
     <input type="submit" value="submit" name="submit">
-    <core:out value="${fn:length(invoice) eq 0 ? 'style=\"border-color: red\"' : ('value=\"${invoice}\"')}"/>
+
 
 </form>
 
